@@ -41,5 +41,6 @@ int main(void){
         printf("Would you like to exit Y/N: ");
         scanf(" %c", &c);
     }
+    printf("Staged");
     return 0;
 }
