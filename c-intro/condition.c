@@ -40,7 +40,6 @@ int main(void){
         }
         printf("Would you like to exit Y/N: ");
         scanf(" %c", &c);
-        //c = tolower(c);
     }
     return 0;
 }
