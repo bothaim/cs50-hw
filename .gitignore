@@ -1,1 +1,3 @@
-/workspaces/cs50-hw/c-intro/*.*
+c-intro/*.o
+c-intro/hello
+c-intro/calc
