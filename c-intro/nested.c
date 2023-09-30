@@ -5,7 +5,7 @@ void nested(void);
 int set_option(void);
 void square(void);
 void triangle(void);
-//void reverse_triangle(void);
+void reverse_triangle(void);
 char quit_handler(void);
 int get_length(char name);
 
@@ -40,7 +40,7 @@ void nested(void)
         }
         else if (option == 3)
         {
-            //reverse_triangle();
+            reverse_triangle();
         }
         else
         {
@@ -71,7 +71,7 @@ void square(void)
     int x;
     int y;
     
-    //Get X
+    //Get matrix 2D length
     x = get_length('x');
 
     //Get Y
@@ -85,36 +85,42 @@ void square(void)
         }
         printf("\n");
     }
-    
-
 }
 
 void triangle(void)
 {
     //Declare variable
-    int x;
-    int y;
-    int n;
+    int l;
 
     //Get X
-    x = get_length('x');
+    l = get_length('l');
 
-    //Get Y
-    y = get_length('y');
-
-    n = x - 1;
-
-    for (int i = 0; i < y; i++)
+    for (int i = 0; i < l; i++)
     {
-        for (int j = n; j < x; j++)
+        for (int j = 0; j <= i; j++)
         {
             printf("*"); 
         }
-        n --;
         printf("\n");
     }
-    
+}
 
+void reverse_triangle(void)
+{
+    //Define variable
+    int l;
+
+    l = get_length('l');
+
+    //Draw a matrix
+    for (int i = l; i > 0; i--)
+    {
+        for (int j = i; j > 0; j--)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }   
 }
 
 int get_length(char name)
