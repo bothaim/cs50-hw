@@ -3,7 +3,7 @@
 
 void discount(void);
 float get_price(void);
-int get_discount(void);
+float get_discount(void);
 float calculate_discounted_price(float, float);
 char user_response(void);
 void result_output(float);
@@ -45,7 +45,7 @@ float get_price(void){
     return a;
 }
 
-int get_discount(void){
+float get_discount(void){
 
     //Discount request
     float a;
