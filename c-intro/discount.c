@@ -58,7 +58,7 @@ float calculate_discounted_price(float a, float b){
 
     //Calculate price
     float price;
-    price = a * ( b / 100);
+    price = a * ( (100 - b) / 100);
     return price;
 }
 
