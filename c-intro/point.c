@@ -2,6 +2,7 @@
 
 int main(void){
 
+    //Simple example of pointers
     int a;
     a = 100;
     int *pt = &a;
@@ -15,5 +16,4 @@ int main(void){
     a = 300;
     printf("The value of a = %i\n", a);
     printf("Value of pointer a = %i\n", *pt);
-
 }
