@@ -24,7 +24,5 @@ int main(void)
     {
         printf("%s - %s\n", people[i].name, people[i].number);
     }
-    
-
     return 0;
 }
