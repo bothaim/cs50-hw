@@ -93,13 +93,16 @@ void sort(int *arr, int size)
 
 int sort_left(int *arr, int start, int end)
 {
-    if ((end - start) == 1)
+    double i_temp;
+    if (start == end)
     {
         return 0;
     }
     else
-    {
-        sort_left(arr, start, end - ceil(end/2));
+    {   
+        i_temp = end / 2.0;
+        end -= ceil(i_temp);
+        sort_left(arr, start, end);
     }
     printf("START{%i} - END{%i}\n", start, end);
 }
