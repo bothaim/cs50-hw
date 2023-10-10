@@ -1,11 +1,2 @@
-c-intro/hello
-c-intro/calc
-c-intro/condition
-c-intro/discount
-c-intro/nested
-c-intro/point
-c-intro/struct
-c-intro/array
-c-intro/sorting
-c-intro/sandbox
+c-intro/build/
 .vscode
