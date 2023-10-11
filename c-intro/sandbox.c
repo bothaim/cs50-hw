@@ -1,10 +1,24 @@
 #include <stdio.h>
 #include <math.h>
 
+void f_sort_left(int start, int end);
+
 int main(void)
 {
-    double x = 4.3;
-    int a = ceil(x);
-    int b = floor(x);
-    printf("Original - %f, ceil - %i, floor - %i\n", x, a, b);
+    int i_arr[]= {3,9,2,0,4,7};
+    int i_size = sizeof(i_arr) / sizeof(i_arr[0]);
+    printf("The size of array - %i\n", i_size);
+
+    int end = i_size - ceil(i_size / 2.0);
+    printf("Right half of the array = start - 0, end - %i\n", end);
+}
+
+void f_sort_left(int start, int end)
+{
+    if (end != start)
+    {
+        end -= ceil(end / 2.0);
+        printf("")
+    }
+    
 }
