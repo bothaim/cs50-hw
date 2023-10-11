@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-void f_sort_left(int start, int end);
+int f_sort_left(int start, int end);
 
 int main(void)
 {
@@ -11,14 +11,21 @@ int main(void)
 
     int end = i_size - ceil(i_size / 2.0);
     printf("Right half of the array = start - 0, end - %i\n", end);
+    f_sort_left(0, end);
 }
 
-void f_sort_left(int start, int end)
+int f_sort_left(int start, int end)
 {
-    if (end != start)
+    if (end == start)
+    {
+        return 0;
+    }
+    else
     {
         end -= ceil(end / 2.0);
-        printf("")
+        printf("Now end - %i\n", end);
+        f_sort_left(start, end);
+        return 1;
     }
-    
+    printf("Is this printed\n");
 }
