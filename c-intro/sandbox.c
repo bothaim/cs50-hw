@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-int sort(int *arr, double s, double e);
+int sort(int *arr, int start, int end);
 
 int main(void)
 {
@@ -11,18 +11,18 @@ int main(void)
     sort(i_arr, 0, i_size - 1);
 }
 
-int sort(int *arr, double s, double e)
+int sort(int *arr, int start, int end)
 {   
-    int p = 0;
-    if (s < e)
+    if (start >= end)
     {
-        p = floor((s + e) / 2.0);
-        sort(arr, s, p);
-        printf("Recursion o")
-    }
-    if (s >= e)
-    {   
-        printf("You reached the the state when start - %i, end - %i\n");
+        printf("Base state reached start = %i, end=%i\n");
         return 0;
     }
+    int mid = 0;
+    mid = floor((start + end)/ 2.0);
+    printf("Divide starting at positions start = %i, end = %i, mid = %i\n", start, end, mid);
+    sort(arr, start, mid);
+    sort(arr, mid+1, end);
+    printf("Division Completed.\n");
+    printf("Merge can be started in range %i - %i, with mid = %i\n", start, end, mid);
 }
