@@ -6,10 +6,23 @@ void merge(int *arr, int start, int end, int mid);
 
 int main(void)
 {
-    int i_arr[]= {14, 7, 3, 12, 9, 11, 6, 2};
+    int i_arr[]= {14, 7, 3, 12, 9, 11, 6, 2, 0, 5, 30, 1, 4};
     int i_size = sizeof(i_arr) / sizeof(i_arr[0]);
     printf("The size of array - %i\n", i_size);
+    printf("Before sort: ");
+    for (int i = 0; i < i_size; i++)
+    {
+        printf("%i ", i_arr[i]);
+    }
+    printf("\n");
+    
     sort(i_arr, 0, i_size - 1);
+    for (int i = 0; i < i_size; i++)
+    {
+        printf("%i ", i_arr[i]);
+    }
+    printf("\n");
+    
 }
 
 void sort(int *arr, int start, int end)
@@ -23,11 +36,6 @@ void sort(int *arr, int start, int end)
     mid = floor((start + end)/ 2.0);
     sort(arr, start, mid);
     sort(arr, mid+1, end);
-    for (int i = 0; i < 8; i++)
-    {
-        printf("%i ", arr[i]);
-    }
-    printf("\n");
     merge(arr, start, end, mid);
 }
 
@@ -38,7 +46,6 @@ void merge(int *arr, int start, int end, int mid)
     int pos = 0;
     int int_start = start;
     int int_mid = mid + 1;
-    printf("Merge started at start - %i, end - %i, where mid - %i\n", start, end, mid);
     while (int_start <= mid || int_mid <= end)
     {
         if (int_start > mid)
@@ -69,9 +76,12 @@ void merge(int *arr, int start, int end, int mid)
             }       
         }        
     }
-    for (int i = start; i < end + 1; i++)
+
+    int i = start;
+    int j = 0;
+    for (; i < end + 1; i++, j++)
     {
-        arr[i] = temp_a[i];
+        arr[i] = temp_a[j];
     }
     
 }
