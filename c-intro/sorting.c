@@ -5,14 +5,15 @@
 #include <math.h>
 #include <string.h>
 
-void run(void);
 int get_int(void);
 int get_random_int(int size);
 int in_array(int *arr, size_t size, int value);
 void zero_array(int *array, size_t size);
 void random_int_array(int *arr, size_t size);
 void merge_sort(int *arr, int start, int end);
+void bubble_sort(int *arr, size_t size);
 void merge(int *arr, int start, int end, int mid);
+void swap(int *arr, int pos);
 void print_array(int *arr, size_t size);
 
 int main(int argc, char *argv[])
@@ -21,6 +22,8 @@ int main(int argc, char *argv[])
     int size;
     int compare;
     double time;
+    clock_t start_time;
+    clock_t end_time;
 
     // Ask user for array size
     size = get_int();
@@ -37,11 +40,20 @@ int main(int argc, char *argv[])
     compare = strcmp(argv[1], "merge");
     if (compare == 0)
     {
-        clock_t start_time = clock();
+        start_time = clock();
         merge_sort(i_array, 0, size - 1);
-        clock_t end_time = clock();
+        end_time = clock();
         time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
     }
+    compare = strcmp(argv[1], "buble");
+    if (compare == 0)
+    {
+        start_time = clock();
+        bubble_sort(i_array, size-1);
+        end_time = clock();
+        time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+    }
+    
     printf("It took %f : seconds\n", time);
 }
 
@@ -165,4 +177,32 @@ void print_array(int *arr, size_t size)
         printf("%i ", arr[i]);
     }
     printf("\n");
+}
+
+void bubble_sort(int *arr, size_t size)
+{
+    // Set swap counter to ZERO
+    int i_swap_counter;
+    int i_buble_size;
+
+    do
+    {
+        i_swap_counter = 0;
+        for (int i = 0; i < i_buble_size; i++)
+        {
+            if (arr[i] > arr[i+1])
+            {
+                swap(arr, i);
+                i_swap_counter +=1;
+            }
+            i_buble_size -= 1;
+        }
+    } while (i_swap_counter != 0);
+}
+
+void swap(int *arr, int pos)
+{
+    int temp = arr[pos];
+    arr[pos] = arr[pos+1];
+    arr[pos+1] = temp;
 }
