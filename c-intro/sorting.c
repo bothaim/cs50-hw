@@ -11,8 +11,9 @@ int in_array(int *arr, size_t size, int value);
 void random_int_array(int *arr, size_t size);
 void merge_sort(int *arr, int start, int end);
 void bubble_sort(int *arr, size_t size);
+void insert_sort(int *arr, size_t size);
 void merge(int *arr, int start, int end, int mid);
-void swap(int *arr, int pos);
+void swap(int *arr, int dest, int src);
 void print_array(int *arr, size_t size);
 
 int main(void)
@@ -23,19 +24,18 @@ int main(void)
     double time;
     clock_t start_time;
     clock_t end_time;
-    double times [2];
+    double times [3];
 
     // Ask user for array size
     size = get_int();
 
-    // size = 7;
-    
+    // size = 10;
 
     //Array declaration.
     int array[size];
     int merge_array[size];
     int bubble_array[size];
-    int inser_array[size];
+    int insert_array[size];
 
     start_time = clock();
     random_int_array(array, size);
@@ -45,79 +45,36 @@ int main(void)
 
     memcpy(merge_array, array, sizeof(array));
     memcpy(bubble_array, array, sizeof(array));
-    memcpy(inser_array, array, sizeof(array));
+    memcpy(insert_array, array, sizeof(array));
 
     printf("Size of array %lu\n", sizeof(array));
     printf("Size of array value %lu\n", sizeof(array[0]));
     printf("Length of array %lu\n", sizeof(array)/ sizeof(array[0]));
 
-    //Merge array filling with random numers and sorting
-    start_time = clock();
-    merge_sort(merge_array, 0,size-1);
-    end_time = clock();
-    time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("Time to for merge sort : %f\n", time);
-    times[0] = time;
-    
-
-    // Bubble sort array filling with number and sorting;
-    start_time = clock();
-    bubble_sort(bubble_array, size-1);
-    end_time = clock();
-    time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("Time to for buble sort : %f\n", time);
-    times[1] = time;
+    for (int i = 0; i < 3; i++)
+    {   
+        start_time = clock();
+        switch (i)
+        {
+        case 0: // Merge sort
+            merge_sort(merge_array, 0,size-1);
+            break;
+        
+        case 1: // Bubble sort
+            bubble_sort(bubble_array, size-1);
+            break;
+        case 2: // Insert sort
+            insert_sort(insert_array, size);
+            break;
+        }
+        end_time = clock();
+        time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+        printf("The case %i, sort time is - %f\n", i,time);
+    }
 
     // print_array(merge_array, size);
     // print_array(bubble_array, size);
-    printf("Times %f\n", times[1]/times[0]);
-}
-
-int get_int()
-{
-    int a;
-    printf("Please enter array size: ");
-    scanf("%i", &a);
-    return a;
-}
-
-int get_random_int(int size)
-{
-    // srand(time(NULL));
-    // sleep(1);
-    return rand() % size;
-}
-
-void random_int_array(int *arr, size_t size)
-{
-    int i_count = 0;
-    int i_temp;
-    while (i_count < size)
-    {
-        i_temp = get_random_int(size+1);
-        if (in_array(arr, size, i_temp) == 0)
-        {
-            arr[i_count] = i_temp;
-            i_count ++;
-            // printf("%i inserted to poistion %i \n", i_temp, i_count);
-        }
-        else
-        {
-            // printf("The number is already array\n");
-        }
-    }
-}
-
-int in_array(int *arr, size_t size, int value)
-{
-    for (int i = 0; i < size ; i++)
-    {
-        if (value == arr[i])
-        {
-            return 1;
-        }
-    }
-    return 0;
+    // print_array(insert_array, size);
 }
 
 void merge_sort(int *arr, int start, int end)
@@ -131,6 +88,52 @@ void merge_sort(int *arr, int start, int end)
     merge_sort(arr, start, mid);
     merge_sort(arr, mid+1, end);
     merge(arr, start, end, mid);
+}
+
+void bubble_sort(int *arr, size_t size)
+{
+    // Set swap counter to ZERO
+    int i_swap_counter;
+    int i_buble_size;
+
+    i_buble_size = size;
+
+    do
+    {
+        i_swap_counter = 0;
+        for (int i = 0; i < i_buble_size; i++)
+        {
+            if (arr[i] > arr[i+1])
+            {
+                swap(arr, i, i+1);
+                i_swap_counter +=1;
+            }
+        }
+        i_buble_size -= 1;
+    } while (i_swap_counter != 0);
+}
+
+void insert_sort(int *arr, size_t size)
+{
+    int min;
+    int pos = 0;
+    int src = 0;
+    do
+    {   
+        min = arr[pos];
+        for (int i = pos; i < size; i++)
+        {
+            if (arr[i] < min)
+            {
+                min = arr[i];
+                src = i;
+            } 
+        }
+        swap(arr, pos, src);
+        pos += 1;
+        src = pos;
+    } while (pos < size);
+    
 }
 
 void merge(int *arr, int start, int end, int mid)
@@ -178,6 +181,60 @@ void merge(int *arr, int start, int end, int mid)
     }
 }
 
+void swap(int *arr, int dest, int src)
+{
+    int temp = arr[dest];
+    arr[dest] = arr[src];
+    arr[src] = temp;
+}
+
+int get_int()
+{
+    int a;
+    printf("Please enter array size: ");
+    scanf("%i", &a);
+    return a;
+}
+
+void random_int_array(int *arr, size_t size)
+{
+    int i_count = 0;
+    int i_temp;
+    while (i_count < size)
+    {
+        i_temp = get_random_int(size+1);
+        if (in_array(arr, size, i_temp) == 0)
+        {
+            arr[i_count] = i_temp;
+            i_count ++;
+            // printf("%i inserted to poistion %i \n", i_temp, i_count);
+        }
+        else
+        {
+            // printf("The number is already array\n");
+        }
+    }
+}
+
+int get_random_int(int size)
+{
+    // srand(time(NULL));
+    // sleep(1);
+    return rand() % size;
+}
+
+int in_array(int *arr, size_t size, int value)
+{
+    for (int i = 0; i < size ; i++)
+    {
+        if (value == arr[i])
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void print_array(int *arr, size_t size)
 {
     for (int i = 0; i < size; i++)
@@ -185,34 +242,4 @@ void print_array(int *arr, size_t size)
         printf("%i ", arr[i]);
     }
     printf("\n");
-}
-
-void bubble_sort(int *arr, size_t size)
-{
-    // Set swap counter to ZERO
-    int i_swap_counter;
-    int i_buble_size;
-
-    i_buble_size = size;
-
-    do
-    {
-        i_swap_counter = 0;
-        for (int i = 0; i < i_buble_size; i++)
-        {
-            if (arr[i] > arr[i+1])
-            {
-                swap(arr, i);
-                i_swap_counter +=1;
-            }
-        }
-        i_buble_size -= 1;
-    } while (i_swap_counter != 0);
-}
-
-void swap(int *arr, int pos)
-{
-    int temp = arr[pos];
-    arr[pos] = arr[pos+1];
-    arr[pos+1] = temp;
 }
