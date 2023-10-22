@@ -15,7 +15,7 @@ void merge(int *arr, int start, int end, int mid);
 void swap(int *arr, int pos);
 void print_array(int *arr, size_t size);
 
-int main(int argc, char *argv[])
+int main(void)
 {
     // Variable declaration
     int size;
@@ -23,42 +23,54 @@ int main(int argc, char *argv[])
     double time;
     clock_t start_time;
     clock_t end_time;
-    char mode[20];
+    double times [2];
 
     // Ask user for array size
     size = get_int();
-    strcpy(mode, argv[1]);
+
     // size = 7;
     
 
     //Array declaration.
-    int i_array[size];
+    int array[size];
+    int merge_array[size];
+    int bubble_array[size];
+    int inser_array[size];
 
-    //Fill array with random INT`s
-    random_int_array(i_array, size);
+    start_time = clock();
+    random_int_array(array, size);
+    end_time = clock();
+    time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+    printf("Time to fill the array is %f\n", time);
 
-    compare = strcmp(mode, "merge");
-    if (compare == 0)
-    {
-        printf("The merge sort been executed.\n");
-        start_time = clock();
-        merge_sort(i_array, 0, size - 1);
-        end_time = clock();
-        time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    }
-    compare = strcmp(mode, "buble");
-    if (compare == 0)
-    {
-        printf("The buuble sort been executed.\n");
-        // print_array(i_array, size);
-        start_time = clock();
-        bubble_sort(i_array, size-1);
-        end_time = clock();
-        // print_array(i_array, size);
-        time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    }
+    memcpy(merge_array, array, sizeof(array));
+    memcpy(bubble_array, array, sizeof(array));
+    memcpy(inser_array, array, sizeof(array));
+
+    printf("Size of array %lu\n", sizeof(array));
+    printf("Size of array value %lu\n", sizeof(array[0]));
+    printf("Length of array %lu\n", sizeof(array)/ sizeof(array[0]));
+
+    //Merge array filling with random numers and sorting
+    start_time = clock();
+    merge_sort(merge_array, 0,size-1);
+    end_time = clock();
+    time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+    printf("Time to for merge sort : %f\n", time);
+    times[0] = time;
     
-    printf("It took %f : seconds\n", time);
+
+    // Bubble sort array filling with number and sorting;
+    start_time = clock();
+    bubble_sort(bubble_array, size-1);
+    end_time = clock();
+    time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
+    printf("Time to for buble sort : %f\n", time);
+    times[1] = time;
+
+    // print_array(merge_array, size);
+    // print_array(bubble_array, size);
+    printf("Times %f\n", times[1]/times[0]);
 }
 
 int get_int()
