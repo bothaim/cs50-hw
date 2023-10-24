@@ -15,6 +15,7 @@ void insert_sort(int *arr, size_t size);
 void merge(int *arr, int start, int end, int mid);
 void swap(int *arr, int dest, int src);
 void print_array(int *arr, size_t size);
+void compare_times(double *arr, size_t size);
 
 int main(void)
 {
@@ -24,7 +25,8 @@ int main(void)
     double time;
     clock_t start_time;
     clock_t end_time;
-    double times [3];
+    size_t times_size = 3;
+    double times [times_size];
 
     // Ask user for array size
     size = get_int();
@@ -47,11 +49,11 @@ int main(void)
     memcpy(bubble_array, array, sizeof(array));
     memcpy(insert_array, array, sizeof(array));
 
-    printf("Size of array %lu\n", sizeof(array));
-    printf("Size of array value %lu\n", sizeof(array[0]));
-    printf("Length of array %lu\n", sizeof(array)/ sizeof(array[0]));
+    // printf("Size of array %lu\n", sizeof(array));
+    // printf("Size of array value %lu\n", sizeof(array[0]));
+    // printf("Length of array %lu\n", sizeof(array)/ sizeof(array[0]));
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < times_size; i++)
     {   
         start_time = clock();
         switch (i)
@@ -70,7 +72,10 @@ int main(void)
         end_time = clock();
         time = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
         printf("The case %i, sort time is - %f\n", i,time);
+        times[i] = time;
     }
+
+    compare_times(times, times_size);
 
     // print_array(merge_array, size);
     // print_array(bubble_array, size);
@@ -242,4 +247,20 @@ void print_array(int *arr, size_t size)
         printf("%i ", arr[i]);
     }
     printf("\n");
+}
+
+void compare_times(double *arr, size_t size)
+{
+    double temp;
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            temp = arr[j] / arr[i];
+            if (temp != 1)
+            {
+                printf("The time[%i] to time[%i] %f\n", i, j,temp);
+            }
+        } 
+    }
 }
