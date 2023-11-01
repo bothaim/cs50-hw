@@ -1,18 +1,21 @@
 #include <stdio.h>
 
 int get_int(char *promt);
-int get_factorial(int value);
+long get_factorial(int value);
 
 int main(void)
 {   
     // Variable declaraion
     int value;
-    int result;
+    long result;
 
     value = get_int("Please enter the number");
     printf("You recived - %i\n", value);
-    result = get_factorial(value);
-    printf("Result = %i\n", result);
+    for (int i = 1; i <= value; i++)
+    {
+        result = get_factorial(i);
+        printf("Factorial of %i\t= %li\n", i, result);
+    }
 }
 
 int get_int(char *promt)
@@ -23,10 +26,10 @@ int get_int(char *promt)
     return value;
 }
 
-int get_factorial(int value)
+long get_factorial(int value)
 {
-    int factorial;
-    int result;
+    long factorial;
+    long result;
     if (value == 1)
     {
         return value;
