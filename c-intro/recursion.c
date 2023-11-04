@@ -44,13 +44,9 @@ int get_int(char *promt)
 
 long get_factorial(int value)
 {
-    long factorial;
-    long result;
     if (value == 1)
     {
         return value;
     }
-    factorial = get_factorial(value - 1);
-    result = value * factorial;
-    return result;
+    return value * get_factorial(value - 1);
 }
