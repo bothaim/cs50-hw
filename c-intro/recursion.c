@@ -1,10 +1,29 @@
 #include <stdio.h>
+#include <string.h>
 
 int get_int(char *promt);
 long get_factorial(int value);
+void factorial(void);
 
-int main(void)
+int main(int argc, char *argv[])
 {   
+    int compare;
+    if (argc > 1)
+    {
+        compare = strcmp(argv[1], "factorial");
+        if (compare == 0)
+        {
+            factorial();
+        }
+    }
+    else
+    {
+        printf("No parameters been provided - exit\n");
+    }
+}
+
+void factorial(void)
+{
     // Variable declaraion
     int value;
     long result;
@@ -30,8 +49,7 @@ int main(void)
             times = results[i] / results[i-1];
             printf("Factorial of %i\t= %li\t| times\t %i\n", i+1, results[i], times);
         }
-    }
-    
+    }   
 }
 
 int get_int(char *promt)
